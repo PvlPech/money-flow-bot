@@ -25,8 +25,17 @@ export interface Env {
 	// MY_QUEUE: Queue;
 }
 
-export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
+const worker = {
+	async fetch(
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		request: Request,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		env: Env,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		ctx: ExecutionContext,
+	): Promise<Response> {
+		return new Response("Hello Worker!");
 	},
 };
+
+export default worker;
