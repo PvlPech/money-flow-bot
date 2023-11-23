@@ -4,7 +4,7 @@ import { test, expect } from "@jest/globals";
 test("GET /", async () => {
 	const result = await worker.fetch?.(
 		new Request("http://falcon", { method: "GET" }),
-		{},
+		{ TELEGRAM_BOT_TOKEN: "TEST_TELEGRAM_BOT_TOKEN" },
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		{} as any,
 	);

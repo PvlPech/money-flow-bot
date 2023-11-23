@@ -8,7 +8,9 @@
 		"test": "node node_modules/jest/bin/jest.js",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
-		"deploy": "npm run lint && npm run test && wrangler deploy"
+		"dev-deploy": "npm run lint && npm run test && wrangler deploy",
+		"staging-deploy": "npm run lint && npm run test && wrangler deploy --env staging",
+		"prod-deploy": "npm run lint && npm run test && wrangler deploy --env production"
 	},
 	"eslintConfig": {
 		"root": true,
