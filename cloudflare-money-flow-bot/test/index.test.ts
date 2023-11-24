@@ -8,8 +8,8 @@ test("GET /", async () => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		{} as any,
 	);
-	expect(result?.status).toBe(200);
+	expect(result?.status).toBe(400);
 
 	const text = await result?.text();
-	expect(text).toBe("Hello Worker!");
+	expect(text).toBe("GET requests are not supported");
 });

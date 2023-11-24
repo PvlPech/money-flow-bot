@@ -25,9 +25,65 @@ const worker = {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		ctx: ExecutionContext,
 	): Promise<Response> {
-		console.log(`Incoming Request: ${request}`);
-		return new Response("Hello Worker!");
+		return processRequest(request);
 	},
 };
+
+async function processErrorRequest(request: Request): Promise<Response> {
+	return new Response(`${request.method} requests are not supported`, {
+		headers: {
+			"content-type": "application/text;charset=UTF-8",
+		},
+		status: 400,
+	});
+}
+
+async function processPostRequest(request: Request): Promise<Response> {
+	const body = JSON.parse(await readRequestBody(request));
+
+	const answer = {
+		method: "sendMessage",
+		chat_id: body?.message?.chat?.id,
+		reply_to_message_id: body?.message?.message_id,
+		text: JSON.stringify(body?.message),
+	};
+	return new Response(JSON.stringify(answer), {
+		headers: {
+			"content-type": "application/json;charset=UTF-8",
+		},
+		status: 200,
+	});
+}
+
+async function processRequest(request: Request): Promise<Response> {
+	if (request.method !== "POST") {
+		return processErrorRequest(request);
+	} else {
+		return processPostRequest(request);
+	}
+}
+
+async function readRequestBody(request: Request): Promise<string> {
+	console.log("Reading Request Body...");
+	const { headers } = request;
+	const contentType = headers.get("content-type") || "";
+	let res: string;
+
+	console.log(`Content Type: ${contentType}`);
+
+	if (contentType.includes("application/json")) {
+		res = JSON.stringify(await request.json());
+	} else if (contentType.includes("application/text")) {
+		res = await request.text();
+	} else if (contentType.includes("text/html")) {
+		res = await request.text();
+	} else {
+		const blob = await request.blob();
+		res = await blob.text();
+	}
+
+	console.log(`Body: ${res}`);
+	return res;
+}
 
 export default worker;
