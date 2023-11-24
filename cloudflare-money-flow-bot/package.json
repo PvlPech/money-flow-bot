@@ -8,6 +8,7 @@
 		"test": "node node_modules/jest/bin/jest.js",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
+		"remote-logs": "wrangler tail --format=pretty",
 		"dev-deploy": "npm run lint && npm run test && wrangler deploy",
 		"staging-deploy": "npm run lint && npm run test && wrangler deploy --env staging",
 		"prod-deploy": "npm run lint && npm run test && wrangler deploy --env production"
@@ -31,10 +32,13 @@
 		"eslint-plugin-prettier": "^5.0.1",
 		"eslint-plugin-promise": "^6.1.1",
 		"jest": "^29.7.0",
+		"jest-environment-miniflare": "^2.6.0",
 		"miniflare": "^3.20231030.0",
 		"ts-jest": "^29.1.1",
 		"typescript": "^5.2.2",
-		"wrangler": "^3.16.0",
-		"jest-environment-miniflare": "^2.6.0"
+		"wrangler": "^3.16.0"
+	},
+	"dependencies": {
+		"telegraf": "^4.15.0"
 	}
 }
