@@ -9,7 +9,7 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"remote-logs": "wrangler tail --format=pretty",
-		"dev-deploy": "npm run lint && npm run test && wrangler deploy",
+		"dev-deploy": "wrangler deploy",
 		"staging-deploy": "npm run lint && npm run test && wrangler deploy --env staging",
 		"prod-deploy": "npm run lint && npm run test && wrangler deploy --env production"
 	},
@@ -39,6 +39,6 @@
 		"wrangler": "^3.16.0"
 	},
 	"dependencies": {
-		"telegraf": "^4.15.0"
+		"grammy": "^1.19.2"
 	}
 }
