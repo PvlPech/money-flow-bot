@@ -1,3 +1,1 @@
-export interface IStorageService {
-    
-}
+export interface IStorageService {}

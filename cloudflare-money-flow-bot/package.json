@@ -9,9 +9,13 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"remote-logs": "wrangler tail --format=pretty",
-		"dev-deploy": "wrangler deploy",
+		"dev-deploy": "wrangler deploy --env dev",
 		"staging-deploy": "npm run lint && npm run test && wrangler deploy --env staging",
-		"prod-deploy": "npm run lint && npm run test && wrangler deploy --env production"
+		"prod-deploy": "npm run lint && npm run test && wrangler deploy --env production",
+		"generate-db": "drizzle-kit generate:sqlite",
+		"push-db": "drizzle-kit push:sqlite",
+    	"up-db": "drizzle-kit up:sqlite",
+		"drop-db": "drizzle-kit drop"
 	},
 	"eslintConfig": {
 		"root": true,
@@ -25,6 +29,7 @@
 		"@types/jest": "^29.5.8",
 		"@typescript-eslint/eslint-plugin": "^6.11.0",
 		"@typescript-eslint/parser": "^6.11.0",
+		"drizzle-kit": "^0.20.6",
 		"eslint": "^8.54.0",
 		"eslint-config-standard-with-typescript": "^40.0.0",
 		"eslint-plugin-import": "^2.29.0",
@@ -39,6 +44,7 @@
 		"wrangler": "^3.16.0"
 	},
 	"dependencies": {
+		"drizzle-orm": "^0.29.1",
 		"grammy": "^1.19.2"
 	}
 }

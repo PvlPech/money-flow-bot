@@ -1,6 +1,19 @@
 name = "cloudflare-money-flow-bot"
 main = "src/index.ts"
 compatibility_date = "2023-10-30"
+node_compat = true
+
+# This is a dev environment
+[env.dev]
+d1_databases = [
+    { binding = "DB", database_name = "money-flow-bot-dev-db", database_id = "a38e3f24-a765-4de9-b656-9457236e44bb" },
+]
+
+# This is a production environment
+[env.production]
+d1_databases = [
+    { binding = "DB", database_name = "money-flow-bot-prod-db", database_id = "7a88156b-022b-4bb2-9634-fc377612b037" },
+]
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.

@@ -6,37 +6,38 @@ import { Bot, webhookCallback } from "grammy";
 import { Message } from "../messages/message.class";
 
 export class TelegramBot {
+	bot: Bot;
+	commands: Command[] = [];
+	messages: Message[] = [];
 
-    bot: Bot;
-    commands: Command[] = [];
-    messages: Message[] = [];
+	constructor(
+		private readonly storageService: IStorageService,
+		private readonly botToken: string,
+	) {
+		this.bot = new Bot(botToken);
+		this.init();
+	}
 
-    constructor(private readonly storageService: IStorageService, private readonly botToken: string) {
-        this.bot = new Bot(botToken);   
-        this.init();   
-    }
+	init() {
+		this.initCommands();
+		this.initMessages();
+	}
 
-    init() {
-        this.initCommands();
-        this.initMessages();
-    }
+	initCommands() {
+		this.commands = [new StartCommand(this.bot)];
+		for (const command of this.commands) {
+			command.handle();
+		}
+	}
 
-    initCommands() {
-        this.commands = [new StartCommand(this.bot)];
-        for (const command of this.commands) {
-            command.handle();
-        }
-    }
+	initMessages() {
+		this.messages = [new ExpenseMessage(this.bot, this.storageService)];
+		for (const message of this.messages) {
+			message.handle();
+		}
+	}
 
-    initMessages() {
-        this.messages = [new ExpenseMessage(this.bot)];
-        for (const message of this.messages) {
-            message.handle();
-        }
-    }
-
-    webhookCallback(...args: any[]): any {
-        return webhookCallback(this.bot, "cloudflare");
-    }
-
+	webhookCallback(...args: any[]): any {
+		return webhookCallback(this.bot, "cloudflare");
+	}
 }
