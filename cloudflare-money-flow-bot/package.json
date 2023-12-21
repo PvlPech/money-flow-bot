@@ -13,7 +13,8 @@
 		"staging-deploy": "npm run lint && npm run test && wrangler deploy --env staging",
 		"prod-deploy": "npm run lint && npm run test && wrangler deploy --env production",
 		"generate-db": "drizzle-kit generate:sqlite",
-		"push-db": "drizzle-kit push:sqlite",
+		"dev-apply-db": "wrangler d1 migrations apply money-flow-bot-db --env dev",
+		"production-apply-db": "wrangler d1 migrations apply money-flow-bot-db --env production",
     	"up-db": "drizzle-kit up:sqlite",
 		"drop-db": "drizzle-kit drop"
 	},
