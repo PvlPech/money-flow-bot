@@ -9,12 +9,14 @@ export class TelegramBot {
 	bot: Bot;
 	commands: Command[] = [];
 	messages: Message[] = [];
+	webhookCallback: any;
 
 	constructor(
 		private readonly storageService: IStorageService,
 		private readonly botToken: string,
 	) {
 		this.bot = new Bot(botToken);
+		this.webhookCallback = webhookCallback(this.bot, "cloudflare-mod");
 		this.init();
 	}
 
@@ -37,7 +39,7 @@ export class TelegramBot {
 		}
 	}
 
-	webhookCallback(...args: any[]): any {
-		return webhookCallback(this.bot, "cloudflare");
+	processRequest(request: Request): any {
+		return this.webhookCallback(request);
 	}
 }

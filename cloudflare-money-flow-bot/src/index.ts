@@ -10,7 +10,7 @@ export interface Env {
 
 export default {
     async fetch(request: Request, env: Env) {
-        const bot = new TelegramBot(storageService, env.TELEGRAM_BOT_TOKEN)
-        return bot.webhookCallback();
+        const bot = new TelegramBot(storageService, env.TELEGRAM_BOT_TOKEN);
+        return bot.processRequest(request);
     },
-  };
+};
